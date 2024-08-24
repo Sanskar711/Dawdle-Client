@@ -1,0 +1,15 @@
+/* VerificationInProgress.css */
+.verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .verification-message {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+  }
+  

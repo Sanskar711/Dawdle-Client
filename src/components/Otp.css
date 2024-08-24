@@ -1,0 +1,71 @@
+/* src/OtpInput.css */
+.otp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .otp-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .otp-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .otp-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 5px;
+  }
+  
+  .otp-submit-button,
+  .otp-resend-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #6200ea;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .otp-resend-button {
+    background: transparent;
+    color: #6200ea;
+    text-decoration: underline;
+  }
+  
+  .otp-submit-button:hover,
+  .otp-resend-button:hover {
+    opacity: 0.8;
+  }
+  

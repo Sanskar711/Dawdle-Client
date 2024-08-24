@@ -1,0 +1,39 @@
+/* Meetings.css */
+
+.meetings-container {
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.meetings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.meeting-item {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.meeting-item:hover {
+    background-color: #f9f9f9;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Additional styles for loading and error states */
+.loading, .error {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}

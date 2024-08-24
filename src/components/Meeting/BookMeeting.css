@@ -1,0 +1,193 @@
+.book-meeting-container {
+    /* width: 100%; */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* .go-back {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.go-back-icon {
+    width: 40px;
+    cursor: pointer;
+} */
+
+h1, h2 {
+    text-align: center;
+    color: #6A0DAD;
+    margin: 0;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #7A73A0;
+}
+
+.prospect-information {
+    border: 2px solid #6A0DAD;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.prospect-information h3 {
+    font-size: 2rem;
+    color: #6A0DAD;
+    margin-bottom: 10px;
+}
+
+.prospect-information p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.prospect-select,
+.prospect-input {
+    margin-bottom: 30px;
+    border: 2px dashed #6A0DAD;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+}
+
+.prospect-select label,
+.prospect-input label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.prospect-select select,
+.prospect-input input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    /* width: 100%; */
+}
+
+.prospect-select small {
+    font-size: 0.9rem;
+    color: #7A73A0;
+}
+
+.or-divider {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #6A0DAD;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.next-button {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 15px;
+    background-color: #6A0DAD;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.next-button:hover {
+    background-color: #500A85;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .prospect-information {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .prospect-information h3 {
+        font-size: 1.5rem;
+    }
+
+    .prospect-information p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .prospect-select,
+    .prospect-input {
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .or-divider {
+        font-size: 1.2rem;
+        margin: 15px 0;
+    }
+
+    .next-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .prospect-information {
+        padding: 15px;
+    }
+
+    .prospect-information h3 {
+        font-size: 1.2rem;
+    }
+
+    .prospect-information p {
+        font-size: 0.9rem;
+    }
+
+    .prospect-select,
+    .prospect-input {
+        margin-bottom: 15px;
+        padding: 10px;
+    }
+
+    .or-divider {
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+
+    .next-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

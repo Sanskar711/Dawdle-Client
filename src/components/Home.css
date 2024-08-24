@@ -1,0 +1,80 @@
+.book-meeting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  max-width: 500px;
+  margin: auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1, h2 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.prospect-information {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.prospect-select, .prospect-input {
+  margin-bottom: 1rem;
+}
+
+.prospect-select label, .prospect-input label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+select, input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+select:focus, input:focus {
+  border-color: #7B00FF;
+  outline: none;
+}
+
+.or-divider {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 1rem 0;
+}
+
+.next-button {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #7B00FF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.next-button:hover {
+  background-color: #5754d4;
+}
+
+.go-back {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.go-back-icon {
+  width: 20px;
+  height: 20px;
+}

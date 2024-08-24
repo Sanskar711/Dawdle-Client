@@ -1,0 +1,45 @@
+.meeting-detail-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .meeting-info, .prospect-info {
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #555;
+  }
+  
+  p {
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+  
+  strong {
+    color: #333;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+  
+  .error {
+    text-align: center;
+    color: red;
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+  

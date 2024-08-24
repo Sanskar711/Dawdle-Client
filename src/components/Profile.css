@@ -1,0 +1,30 @@
+/* src/App.css */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .profile-form {
+    width: 50%;
+  }
+  
+  .profile-form label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+  }
+  
+  .profile-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  

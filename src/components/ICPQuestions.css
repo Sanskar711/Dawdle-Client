@@ -1,0 +1,33 @@
+.icp-qualifying-questions {
+  padding: 20px;
+}
+
+.icp-qualifying-questions h2, h3 {
+  margin-bottom: 15px;
+}
+
+.icp-qualifying-questions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.icp-qualifying-questions li {
+  margin-bottom: 10px;
+}
+
+.continue-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.continue-button:hover {
+  background-color: #0056b3;
+}
+

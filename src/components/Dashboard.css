@@ -1,0 +1,84 @@
+/* Dashboard.css */
+
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.user-profile-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.user-profile-dashboard h2 {
+    margin-bottom: 8px;
+}
+
+.user-profile-dashboard p {
+    margin-bottom: 4px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.performance-metrics {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.performance-metrics .title {
+    font-size: 24px;
+    color: #4A4A4A;
+}
+
+.performance-metrics .subtitle {
+    font-size: 16px;
+    color: #6A6A6A;
+    margin-bottom: 20px;
+}
+
+.metrics {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.metric-item:hover {
+    transform: translateY(-2px);
+}
+
+.metric-number {
+    font-size: 36px;
+    color: #3B82F6;
+}
+
+.metric-label {
+    font-size: 16px;
+    color: #6B7280;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .metrics {
+        flex-direction: column;
+    }
+}
