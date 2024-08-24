@@ -7,8 +7,6 @@ const MeetingsCard = ({ filterBy, title }) => {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [productNames, setProductNames] = useState({});
-  const [prospectNames, setProspectNames] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,18 +16,6 @@ const MeetingsCard = ({ filterBy, title }) => {
         const filteredMeetings = response.data.filter(meeting => meeting.status === filterBy);
         const sortedMeetings = sortMeetings(filteredMeetings);
         setMeetings(sortedMeetings);
-
-        // Extract product and prospect IDs
-        const productIds = [...new Set(filteredMeetings.map(meeting => meeting.product).filter(id => id !== null))];
-        const prospectIds = [...new Set(filteredMeetings.map(meeting => meeting.prospect).filter(id => id !== null))];
-
-        // Fetch and set product names
-        const productNamesMap = await fetchProductNames(productIds);
-        setProductNames(productNamesMap);
-
-        // Fetch and set prospect names
-        const prospectNamesMap = await fetchProspectNames(prospectIds);
-        setProspectNames(prospectNamesMap);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -42,38 +28,6 @@ const MeetingsCard = ({ filterBy, title }) => {
 
   const sortMeetings = (meetings) => {
     return meetings.sort((a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at));
-  };
-
-  const fetchProductNames = async (productIds) => {
-    const productNamesMap = {};
-    await Promise.all(
-      productIds.map(async (productId) => {
-        try {
-          const response = await users.get(`clients/products/${productId}/`);
-          productNamesMap[productId] = response.data.name;
-        } catch (err) {
-          console.error(`Error fetching product info for ID ${productId}:`, err);
-          productNamesMap[productId] = "Unknown Product";
-        }
-      })
-    );
-    return productNamesMap;
-  };
-
-  const fetchProspectNames = async (prospectIds) => {
-    const prospectNamesMap = {};
-    await Promise.all(
-      prospectIds.map(async (prospectId) => {
-        try {
-          const response = await users.get(`clients/prospects/${prospectId}/`);
-          prospectNamesMap[prospectId] = response.data.company_name;
-        } catch (err) {
-          console.error(`Error fetching prospect info for ID ${prospectId}:`, err);
-          prospectNamesMap[prospectId] = "Unknown Prospect";
-        }
-      })
-    );
-    return prospectNamesMap;
   };
 
   if (loading) {
@@ -95,11 +49,11 @@ const MeetingsCard = ({ filterBy, title }) => {
         {meetings.map((meeting) => (
           <div key={meeting.id} className="meeting-item" onClick={() => handleMeetingDetails(meeting.id)}>
             <strong>
-              {meeting.prospect ? prospectNames[meeting.prospect] || "Loading..." : "No Prospect Information"}
+              {meeting.prospect ? meeting.prospect.company_name : "No Prospect Information"}
             </strong>
             <span>{new Date(meeting.scheduled_at).toLocaleString()}</span>
             <span>
-              {meeting.product ? productNames[meeting.product] || "Loading..." : "No Product Information"}
+              {meeting.product ? meeting.product.name : "No Product Information"}
             </span>
           </div>
         ))}

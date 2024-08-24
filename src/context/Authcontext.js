@@ -23,8 +23,13 @@ export const AuthProvider = ({ children }) => {
     try {
       const decodedToken = jwtDecode(token);
       const currentTime = Date.now() / 1000;
-  
-      if (decodedToken.exp < currentTime) {
+      console.log(decodedToken)
+      if(decodedToken.user_id){
+        console.log("Token expired");
+        Cookies.remove('token');
+        setIsAuthenticated(false);
+      }
+      if (decodedToken.exp < currentTime ) {
         console.log("Token expired");
         Cookies.remove('token');
         setIsAuthenticated(false);
@@ -50,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     try { 
       const response = await api.get(`/clients/client-info/`);
       setClientProfile(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     } catch (error) {
       console.error('Failed to fetch client profile:', error);
     }

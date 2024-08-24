@@ -25,7 +25,7 @@ api.interceptors.request.use(async (config) => {
   config.headers['X-CSRFToken'] = csrfToken;
 
   const token = Cookies.get('token');
-  if (token && !config.url.includes('/users/signin')) {
+  if (token && !config.url.includes('/clients/signin')) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 

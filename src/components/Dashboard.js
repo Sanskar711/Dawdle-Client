@@ -27,7 +27,7 @@ const Dashboard = () => {
     try {
       const response = await api.get('/clients/meetings/');
       const meetings = response.data;
-      console.log(meetings);
+      // console.log(meetings);
       setMeetingsScheduled(meetings.filter(meeting => meeting.status === 'scheduled').length);
       setDealsClosed(meetings.filter(meeting => meeting.status === 'closed').length);
       setDealsCompleted(meetings.filter(meeting => meeting.status === 'completed').length);
@@ -54,17 +54,14 @@ const Dashboard = () => {
   };
 
   // Function to construct the full image URL
-  const getCompanyLogoUrl = (logoPath) => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || ''; // Set your base API URL here if necessary
-    return logoPath ? `${baseUrl}${logoPath}` : dummyProfile;
-  };
+  
 
   return (
     <div className="dashboard-container">
       <div className="user-profile-dashboard">
         {/* User Profile Details */}
         <img 
-          src={getCompanyLogoUrl(clientProfile?.company_logo)} 
+          src={clientProfile.company_logo?`${api.defaults.baseURL}${clientProfile.company_logo}`:dummyProfile} 
           alt="Company Logo" 
           className="avatar" 
         />
