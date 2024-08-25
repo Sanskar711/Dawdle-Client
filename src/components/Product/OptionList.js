@@ -12,7 +12,7 @@ import api from "../../context/api";
 const OptionList = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated,checkAuth } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [productName, setProductName] = useState(null);
   const [companyName, setCompanyName] = useState(null);
@@ -20,6 +20,7 @@ const OptionList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    checkAuth()
     if (!isAuthenticated) {
       navigate("/login");
     }

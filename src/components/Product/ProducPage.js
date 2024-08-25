@@ -13,9 +13,10 @@ const ProductPage = () => {
 
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated,checkAuth } = useAuth();
 
   useEffect(() => {
+    checkAuth()
     if (!isAuthenticated) {
       navigate('/login');
     }

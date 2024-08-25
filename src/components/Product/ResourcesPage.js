@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './ResourcesPage.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';  // Make sure to have an arrow icon in your images folder
-
+import { useAuth } from '../../context/Authcontext';
 const ResourcesPage = () => {
   const { productId } = useParams();
   const [resources, setResources] = useState([]);
@@ -12,7 +12,13 @@ const ResourcesPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [newResource, setNewResource] = useState({ name: '', link: '' });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchResources = async () => {
       try {

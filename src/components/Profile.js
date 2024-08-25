@@ -3,14 +3,20 @@ import './Profile.css';
 import api from '../context/api';
 import dummyProfile from '../images/user_default.jpg'; // Ensure this path is correct
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/Authcontext';
 
 const Profile = () => {
   const [originalProfile, setOriginalProfile] = useState({});
   const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout, checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchProfile = async () => {
       try {

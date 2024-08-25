@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './IdealCustomerProfiles.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';
-
 const INDUSTRY_CHOICES = [
   { value: 'Tech', label: 'Technology' },
   { value: 'Health', label: 'Healthcare' },

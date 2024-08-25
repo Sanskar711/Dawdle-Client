@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../images/logo.png';
 import './Navbar.css';
 import { useAuth } from '../context/Authcontext';
 
-const Navbar = () => {
+const Navbar = ({ setSearchTerm }) => {  // Receive setSearchTerm as a prop
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for the mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { logout , clientProfile, isAuthenticated,fetchClientProfile} = useAuth();
+  const { logout, clientProfile, isAuthenticated, fetchClientProfile,checkAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); // Get current route
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -42,12 +43,19 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [dropdownOpen]);
+
+
   useEffect(()=>{
-    if(isAuthenticated){
-      fetchClientProfile();
-      return;
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
     }
   },[isAuthenticated])
+
+  const handleSearch = (term) => {
+    setSearchTerm(term); // Update the search term
+  };
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -66,12 +74,22 @@ const Navbar = () => {
           <NavLink className="nav-link" exact to='/dashboard' activeClassName="active">Dashboard</NavLink>
         </li>
       </ul>
-      <div className="search-container">
-        <input type="text" placeholder="Search Products" className="search-input" aria-label="Search Products" />
-      </div>
+
+      {/* Conditionally render the search bar */}
+      {location.pathname === '/home' && (
+        <div className="search-container">
+          <input 
+            type="text" 
+            placeholder="Search Prospects" 
+            className="search-input" 
+            aria-label="Search Prospects" 
+            onChange={(e) => handleSearch(e.target.value)} 
+          />
+        </div>
+      )}
+
       <div className="user-profile" onClick={toggleDropdown} ref={dropdownRef}>
-        
-        <span className="user-name">{clientProfile.name}</span>
+        <span className="user-name">{clientProfile?.name}</span>
         <div className={`dropdown-icon ${dropdownOpen ? 'open' : ''}`} aria-hidden="true">▼</div>
         {dropdownOpen && (
           <div className="dropdown-menu">

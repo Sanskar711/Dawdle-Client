@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import users from '../context/api';  // Replace api with users
 import './MeetingDetail.css';
-
+import { useAuth } from '../context/Authcontext';
 const MeetingDetail = () => {
   const { id } = useParams();
   const [meeting, setMeeting] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchMeeting = async () => {
       try {

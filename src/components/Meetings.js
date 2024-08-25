@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './Meetings.css';
 import users from '../context/api';  // Replace api with users
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/Authcontext';
 const MeetingsCard = ({ filterBy, title }) => {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchMeetings = async () => {
       try {

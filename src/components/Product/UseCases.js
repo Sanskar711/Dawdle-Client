@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './UseCases.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';  // Ensure you have an arrow icon in your images folder
-
+import { useAuth } from '../../context/Authcontext';
 const UseCasesPage = () => {
   const { productId } = useParams();
   const [useCases, setUseCases] = useState([]);
@@ -19,7 +19,13 @@ const UseCasesPage = () => {
     reference_links: ''
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchUseCases = async () => {
       try {

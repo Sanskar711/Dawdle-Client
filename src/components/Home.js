@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import VerificationInProgress from './VerificationInProgress';
+import React, { useState, useEffect } from 'react';
 import VerifiedHome from './VerifiedHome';
-import api from '../context/api';  // Use the centralized Axios instance
-import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
+import './Home.css';  // Import the CSS file
 import { useAuth } from '../context/Authcontext';
-// import './Home.css';  // Importing the CSS file
-
 const Home = () => {
-  const [isVerified, setIsVerified] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const {isAuthenticated,checkAuth} = useAuth();
-
-
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const { isAuthenticated,logout } = useAuth();
+  useEffect(()=>{
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   return (
     <div className="home-container">
-      {isVerified ? <VerifiedHome /> : <VerificationInProgress />}
+      <Navbar setSearchTerm={setSearchTerm} />  {/* Pass setSearchTerm to Navbar */}
+      <VerifiedHome searchTerm={searchTerm} />  {/* Pass searchTerm to VerifiedHome */}
     </div>
   );
 };

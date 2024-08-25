@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../context/api';  // Use your Axios instance
 import './VerifiedHome.css';
 
-const VerifiedHome = () => {
+const VerifiedHome = ({ searchTerm }) => {  // Accept searchTerm as a prop
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [prospects, setProspects] = useState([]);
+  const [filteredProspects, setFilteredProspects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -39,24 +40,33 @@ const VerifiedHome = () => {
     }
   }, [selectedProduct]);
 
+  useEffect(() => {
+    if (searchTerm) {
+      const filtered = prospects.filter(prospect =>
+        prospect.company_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProspects(filtered);
+    } else {
+      setFilteredProspects(prospects);
+    }
+  }, [searchTerm, prospects]);
+
   const handleProductChange = (event) => {
     setSelectedProduct(event.target.value);
   };
 
   const handleToggle = (index) => {
-    const updatedProspect = prospects[index];
+    const updatedProspect = filteredProspects[index];
     const newVisibility = !updatedProspect.is_visible;
-  
+
     // Update the prospect in the backend
     api.put(`/clients/products/${selectedProduct}/prospects/${updatedProspect.id}/`, {
       is_visible: newVisibility,
       company_name: updatedProspect.company_name
     })
     .then(response => {
-      console.log(response.data)
-      if (response.data.is_visible===newVisibility) {
-        // Update the state only after the PUT request is successful
-        setProspects(prevProspects => {
+      if (response.data.is_visible === newVisibility) {
+        setFilteredProspects(prevProspects => {
           const newProspects = [...prevProspects];
           newProspects[index].is_visible = newVisibility;
           return newProspects;
@@ -94,11 +104,11 @@ const VerifiedHome = () => {
             <th>Company Name</th>
             <th>Geographical Location</th>
             <th>Meeting Status</th>
-            <th>Visibility</th> {/* Added Visibility as the heading */}
+            <th>Visibility</th>
           </tr>
         </thead>
         <tbody>
-          {prospects.map((prospect, index) => (
+          {filteredProspects.map((prospect, index) => (
             <tr key={index}>
               <td>{prospect.company_name}</td>
               <td>{prospect.geography}</td>

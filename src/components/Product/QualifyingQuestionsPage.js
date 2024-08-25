@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './QualifyingQuestionsPage.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';  // Ensure you have an arrow icon in your images folder
-
+import { useAuth } from '../../context/Authcontext';
 const QualifyingQuestionsPage = () => {
   const { productId } = useParams();
   const [questions, setQuestions] = useState([]);
@@ -14,7 +14,13 @@ const QualifyingQuestionsPage = () => {
     question: ''
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout, checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchQuestions = async () => {
       try {

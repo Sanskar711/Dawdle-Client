@@ -81,30 +81,23 @@
 }
 
 .user-profile {
-  display: flex;
+  display: inline-flex; /* Ensure the width adjusts to fit the content */
   align-items: center;
   cursor: pointer;
   position: relative;
+  padding: 0 0.5rem; /* Add some padding for better visual spacing */
 }
 
 .user-name {
   margin-right: 0.5rem;
-}
-
-.dropdown-icon {
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
-}
-
-.dropdown-icon.open {
-  transform: rotate(180deg);
+  white-space: nowrap; /* Prevents text from wrapping */
 }
 
 .dropdown-menu {
   position: absolute;
   top: 100%;
   right: 0;
-  width: 100%;
+  min-width: 100%; /* Ensure the dropdown is at least as wide as the parent */
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -122,6 +115,7 @@
 .dropdown-item:hover {
   background-color: rgb(238, 240, 241);
 }
+
 
 /* Responsive design */
 @media (max-width: 768px) {

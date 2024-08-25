@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import MeetingsCard from './Meetings';
 
 const Dashboard = () => {
-  const { clientProfile, isAuthenticated, fetchClientProfile } = useAuth();
-  console.log(clientProfile)
+  const { clientProfile, isAuthenticated, fetchClientProfile,checkAuth } = useAuth();
+  // console.log(clientProfile)
   const [meetingsScheduled, setMeetingsScheduled] = useState(0);
   const [dealsClosed, setDealsClosed] = useState(0);
   const [dealsCompleted, setDealsCompleted] = useState(0);
@@ -16,9 +16,10 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    checkAuth()
     if (isAuthenticated) {
       fetchClientProfile();
-      console.log(clientProfile)
+      // console.log(clientProfile)
       fetchPerformanceMetrics();
     } else {
       navigate('/login');

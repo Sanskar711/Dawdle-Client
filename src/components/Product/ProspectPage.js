@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ProspectPage.css';
 import api from '../../context/api';
-
+import { useAuth } from '../../context/Authcontext';
 const ProspectPage = () => {
   const { productId, pk } = useParams();
   const [prospect, setProspect] = useState(null);
@@ -15,7 +15,13 @@ const ProspectPage = () => {
     status: ''
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout , checkAuth} = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchProspect = async () => {
       try {

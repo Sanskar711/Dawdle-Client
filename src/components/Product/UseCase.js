@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './UseCase.css';
 import api from '../../context/api';
-
+import { useAuth } from '../../context/Authcontext';
 const UseCasePage = () => {
   const { productId, pk } = useParams();
   const [useCase, setUseCase] = useState(null);
@@ -18,7 +18,13 @@ const UseCasePage = () => {
     reference_links: ''
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchUseCase = async () => {
       try {

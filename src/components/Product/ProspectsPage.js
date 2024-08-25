@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './ProspectsPage.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';  // Ensure you have an arrow icon in your images folder
-
+import { useAuth } from '../../context/Authcontext';
 const ProspectsPage = () => {
   const { productId } = useParams();
   const [prospects, setProspects] = useState([]);
@@ -16,7 +16,13 @@ const ProspectsPage = () => {
     status: 'open'
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout, checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchProspects = async () => {
       try {

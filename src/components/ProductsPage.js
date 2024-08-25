@@ -23,7 +23,13 @@ const ProductsPage = () => {
   });
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     api.get('/clients/products/')
       .then(response => {

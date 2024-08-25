@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ResourcePage.css';
 import api from '../../context/api';
-
+import { useAuth } from '../../context/Authcontext';
 const ResourcePage = () => {
   const { productId, pk } = useParams();
   const [resource, setResource] = useState(null);
@@ -11,7 +11,13 @@ const ResourcePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedResource, setEditedResource] = useState({ name: '', link: '' });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchResource = async () => {
       try {

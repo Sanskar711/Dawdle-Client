@@ -3,7 +3,7 @@ import './ICPQuestions.css';
 import api from '../context/api';
 import goBack from '../images/Group 20.png';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-
+import { useAuth } from '../context/Authcontext';
 const ICPQualifyingQuestions = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,13 @@ const ICPQualifyingQuestions = () => {
   // Extract the prospectId from the query parameters
   const queryParams = new URLSearchParams(location.search);
   const prospectId = queryParams.get('prospectId');
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {

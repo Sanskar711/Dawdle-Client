@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './IdealCustomerProfile.css';
 import api from '../../context/api';
-
+import { useAuth } from '../../context/Authcontext';
 const INDUSTRY_CHOICES = [
   { value: 'Tech', label: 'Technology' },
   { value: 'Health', label: 'Healthcare' },
@@ -43,7 +43,13 @@ const IdealCustomerProfilePage = () => {
     additional_details: ''
   });
   const navigate = useNavigate();
-
+  const { isAuthenticated,logout,checkAuth } = useAuth();
+  useEffect(()=>{
+    checkAuth()
+    if(!isAuthenticated){
+        logout();
+    }
+  },[isAuthenticated])
   useEffect(() => {
     const fetchProfile = async () => {
       try {
