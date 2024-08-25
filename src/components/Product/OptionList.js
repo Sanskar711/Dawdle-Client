@@ -5,10 +5,8 @@ import aboutCompany from "../../images/Office.png";
 import useCases from "../../images/Project Management.png";
 import viewProspect from "../../images/User Account.png";
 import calendar from "../../images/Calendar Plus.png";
-import goBack from "../../images/Group 20.png";
 import forward from "../../images/Forward.png";
 import { useAuth } from "../../context/Authcontext";
-import BookingModal from "../BookingModal";
 import api from "../../context/api";
 
 const OptionList = () => {
@@ -23,7 +21,7 @@ const OptionList = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate("/login");
     }
   }, [isAuthenticated, navigate]);
 
@@ -36,8 +34,8 @@ const OptionList = () => {
         }
         setProductName(response.data.name);
         setCompanyName(response.data.client.name);
-      } catch (error) {
-        setError(error.message || 'Failed to fetch product details');
+      } catch (err) {
+        setError(err.message || "Failed to fetch product details");
       } finally {
         setLoading(false);
       }
@@ -46,43 +44,8 @@ const OptionList = () => {
     fetchProductDetails();
   }, [productId]);
 
-  const handleAboutClick = () => {
-    navigate(`/product/${productId}/options/productpage`);
-  };
-  const handleOpenResources = () => {
-    navigate(`/products/${productId}/resources/`);
-  };
-
-  const handleViewProspect = () => {
-    navigate(`/product/${productId}/options/prospectList`);
-  };
-
-  const handleUseCases = () => {
-    navigate(`/product/${productId}/options/useCases`);
-  };
-
-  const handleBookMeeting = () => {
-    setShowModal(true);
-  };
-
-  const handleModalClose = () => {
-    setShowModal(false);
-    // Don't reset productName and companyName here, to preserve the values.
-  };
-
-  const handleModalAction = (action) => {
-    const meetingPath = action === 'check' 
-      ? `/product/${productId}/icp-qualifying-questions`
-      : `/product/${productId}/options/book-meeting`;
-
-    navigate(meetingPath, {
-      state: {
-        productName: productName,
-        companyName: companyName,
-      },
-    });
-
-    handleModalClose();
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -90,52 +53,39 @@ const OptionList = () => {
 
   return (
     <div className="option-list-container">
-      
       <div className="option-list">
-        <div className="option-item" onClick={handleAboutClick}>
+        <div className="option-item" onClick={() => handleNavigation(`/product/${productId}/product-page/`)}>
           <img src={aboutCompany} alt="About" className="option-icon" />
           <span>About Product and Company</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
-        <div className="option-item" onClick={handleUseCases}>
+        <div className="option-item" onClick={() => handleNavigation(`/products/${productId}/use-cases/`)}>
           <img src={useCases} alt="Use Cases" className="option-icon" />
           <span>Use Cases / Problem Solved by Product</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
-        <div className="option-item" onClick={handleViewProspect}>
+        <div className="option-item" onClick={() => handleNavigation(`/products/${productId}/prospects/`)}>
           <img src={viewProspect} alt="Prospects" className="option-icon" />
           <span>View Prospects</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
-        <div className="option-item" onClick={handleBookMeeting}>
-          <img src={viewProspect} alt="Assigned Users" className="option-icon" />
-          <span>Assigned Users</span>
-          <img src={forward} alt="Forward" className="forward-icon" />
-        </div>
-        <div className="option-item" onClick={handleBookMeeting}>
+        <div className="option-item" onClick={() => handleNavigation(`/products/${productId}/qualifying-questions/`)}>
           <img src={useCases} alt="Qualifying Questions" className="option-icon" />
           <span>Qualifying Questions</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
-        <div className="option-item" onClick={handleBookMeeting}>
+        <div className="option-item" onClick={() => handleNavigation(`/products/${productId}/ideal-customer-profiles/`)}>
           <img src={viewProspect} alt="ICP" className="option-icon" />
           <span>Ideal Customer Profiles</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
-        <div className="option-item" onClick={handleOpenResources}>
+        <div className="option-item" onClick={() => handleNavigation(`/products/${productId}/resources/`)}>
           <img src={calendar} alt="Resources" className="option-icon" />
           <span>Resources</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
       </div>
-      {showModal && (
-        <BookingModal
-          onClose={handleModalClose}
-          onAction={handleModalAction}
-          productName={productName}
-          companyName={companyName}
-        />
-      )}
+      
     </div>
   );
 };

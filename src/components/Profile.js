@@ -79,7 +79,8 @@ const Profile = () => {
         <h2>{isEditing ? 'Edit Profile' : 'Profile'}</h2>
         
               <img 
-                src={profile.company_logo ? `${api.defaults.baseURL}${profile.company_logo}` : dummyProfile} 
+                src={profile.company_logo ? `${api.defaults.baseURL}${profile.company_logo}` : dummyProfile
+              } 
                 alt="Company Logo" 
                 className="company-logo" 
               />

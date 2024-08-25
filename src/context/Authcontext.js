@@ -86,15 +86,17 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Client ID is not defined');
       }
       const response = await api.post(`/clients/verify_otp_login/${clientId}/`, { code: otp });
-
+  
       if (response.data.message === 'Client verified successfully') {
         setIsAuthenticated(true);
         const token = response.data.token;
         Cookies.set('token', token, { expires: 1/24, secure: true, sameSite: 'Strict' });
         fetchClientProfile();
+        setError(null);  // Clear any previous errors
       }
     } catch (error) {
       console.error('There was an error verifying the OTP!', error);
+      setError('Invalid OTP. Please try again.');  // Set error message for invalid OTP
     }
   };
 

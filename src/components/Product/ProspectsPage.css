@@ -1,4 +1,4 @@
-.usecase-list {
+.prospect-list {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .usecase-card {
+  .prospect-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,11 +18,11 @@
     background-color: #f9f9f9;
   }
   
-  .usecase-card h3 {
+  .prospect-card h3 {
     margin: 0;
   }
   
-  .usecase-actions {
+  .prospect-actions {
     display: flex;
     align-items: center;
   }
@@ -48,7 +48,7 @@
     cursor: pointer;
   }
   
-  .add-usecase-btn,
+  .add-prospect-btn,
   .save-btn,
   button {
     padding: 10px 15px;
@@ -62,12 +62,12 @@
   }
   
   button:hover,
-  .add-usecase-btn:hover,
+  .add-prospect-btn:hover,
   .save-btn:hover {
     background-color: #0056b3;
   }
   
-  .form-popup-overlay {
+  .form-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -81,93 +81,43 @@
   }
   
   .form-popup-content {
-    padding: 15px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;  /* Reduced the maximum width */
-    width: 90%;  /* Adjusts to screen size, maintaining a smaller form */
-    max-height: 400px;  /* Set a fixed maximum height */
-    overflow-y: auto;  /* Enable vertical scrolling */
-  }
-  
-  .form-popup-content h2 {
-    margin-bottom: 15px;
-    font-size: 20px;  /* Slightly smaller heading */
-    color: #333;
-    text-align: center;
+    max-width: 500px;
+    width: 90%;
   }
   
   .form-popup-content label {
     display: block;
     margin-bottom: 5px;
-    font-size: 13px;  /* Slightly smaller font size */
+    font-size: 14px;
     color: #555;
   }
   
   .form-popup-content input[type="text"],
-  .form-popup-content textarea {
+  .form-popup-content select {
     width: 100%;
-    padding: 6px;  /* Reduced padding for a more compact look */
-    margin-bottom: 10px;  /* Less margin for a more compact form */
+    padding: 8px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 13px;  /* Slightly smaller font size */
+    font-size: 14px;
     color: #333;
   }
   
   .form-popup-content input[type="text"]:focus,
-  .form-popup-content textarea:focus {
+  .form-popup-content select:focus {
     border-color: #007BFF;
     outline: none;
-  }
-  
-  .help-text {
-    font-size: 11px;  /* Smaller help text */
-    color: #666;
-    margin-bottom: 8px;
   }
   
   .close-btn {
     background: none;
     border: none;
-    font-size: 18px;  /* Smaller close button */
+    font-size: 20px;
     float: right;
     cursor: pointer;
-    color: #555;
-  }
-  
-  .close-btn:hover {
-    color: #000;
-  }
-  
-  .save-btn {
-    padding: 8px 12px;  /* Slightly smaller save button */
-    font-size: 14px;
-  }
-  
-  @media (max-width: 600px) {
-    .form-popup-content {
-      max-width: 90%;
-      padding: 10px;  /* Further reduced padding on small screens */
-      max-height: 300px;  /* Reduced height for smaller screens */
-    }
-  
-    .form-popup-content h2 {
-      font-size: 18px;
-    }
-  
-    .form-popup-content label {
-      font-size: 12px;
-    }
-  
-    .form-popup-content input[type="text"],
-    .form-popup-content textarea {
-      font-size: 12px;
-    }
-  
-    .help-text {
-      font-size: 10px;
-    }
   }
   

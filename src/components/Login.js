@@ -6,10 +6,12 @@ import { useAuth } from '../context/Authcontext'; // Correct path
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const [isSending, setIsSending] = useState(false); // New state for button loading
-  const { isAuthenticated, login, error, setError } = useAuth(); // Assuming setError is exposed from context
+  const [isSending, setIsSending] = useState(false); // State for button loading
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false); // State for OTP modal visibility
+  const [otpError, setOtpError] = useState(''); // State for OTP errors
+  const [otpMessage, setOtpMessage] = useState(''); // State for OTP messages
+  const { isAuthenticated, login, verifyOtp, error, setError } = useAuth(); // Context for authentication
   const navigate = useNavigate();
-  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -24,31 +26,48 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
     setIsSending(true); // Disable button and show "Sending"
     login(email).then((loginSuccessful) => {
       setIsSending(false); // Re-enable button
       if (loginSuccessful) {
-        setIsOtpModalOpen(true);
+        setIsOtpModalOpen(true); // Open OTP modal on successful login
+      } else {
+        setError('Login failed. Please try again.'); // Handle login failure
       }
     });
   };
 
-  const handleOtpResend = (e) => {
-    login(email);
-    alert("OTP Resent");
+  const handleOtpSubmit = (otp) => {
+    verifyOtp(otp)
+      .then(() => {
+        setIsOtpModalOpen(false);
+        navigate('/home'); // Navigate to home on successful OTP verification
+      })
+      .catch(() => {
+        setOtpError('The OTP entered is incorrect, please try again.'); // Display OTP error
+      });
   };
 
-  const handleClose = () => {
-    setIsOtpModalOpen(false);
+  const handleOtpResend = () => {
+    login(email).then(() => {
+      setOtpMessage('A new OTP has been sent to your email.');
+      setOtpError(''); // Clear previous OTP error
+    });
+  };
+
+  const handleCloseOtpModal = () => {
+    setIsOtpModalOpen(false); // Close OTP modal
+    setOtpError(''); // Clear OTP error on close
+    setOtpMessage(''); // Clear OTP message on close
   };
 
   return (
     <div className="login-container">
       <div className="login-logo">Dawdle</div>
       <h2>Sign in</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleLoginSubmit}>
         <input
           type="email"
           name="email"
@@ -69,8 +88,11 @@ const Login = () => {
       
       {isOtpModalOpen && (
         <Otp
+          error={otpError}
+          message={otpMessage}
+          onSubmit={handleOtpSubmit}
           onResend={handleOtpResend}
-          onClose={handleClose}
+          onClose={handleCloseOtpModal}
         />
       )}
     </div>

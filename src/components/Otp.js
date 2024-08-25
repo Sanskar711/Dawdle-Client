@@ -1,22 +1,16 @@
 import React, { useState, useRef } from 'react';
 import './Otp.css';
-import { useAuth } from '../context/Authcontext'; // Correct path
-import { useNavigate } from 'react-router-dom';
 
-const Otp = ({ onResend, onClose }) => {
-  const [otp, setOtp] = useState(Array(6).fill(''));
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const { verifyOtp } = useAuth();
-  const inputRefs = useRef([]);
-  const navigate  = useNavigate();
+const Otp = ({ error, message, onSubmit, onResend, onClose }) => {
+  const [otp, setOtp] = useState(Array(6).fill(''));  // Local OTP state
+  const inputRefs = useRef([]);  // Ref to manage input focus
+
   const handleChange = (e, index) => {
     const value = e.target.value;
     if (/^[0-9]?$/.test(value)) {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-      setError(''); // Clear error when user types
 
       if (value !== '' && index < 5) {
         inputRefs.current[index + 1].focus();
@@ -50,20 +44,7 @@ const Otp = ({ onResend, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    verifyOtp(otp.join(''))
-      .then(() => {
-        // Redirect or change component state on success
-        navigate("/home")
-      })
-      .catch((error) => {
-        setError('The OTP entered is incorrect, please try again.');
-      });
-  };
-
-  const handleResend = (e) => {
-    onResend();
-    setMessage('A new OTP has been sent to your email.');
-    setError(''); // Clear previous error if any
+    onSubmit(otp.join(''));  // Pass the OTP as a single string to the parent
   };
 
   return (
@@ -72,7 +53,7 @@ const Otp = ({ onResend, onClose }) => {
         <button className="otp-close-button" onClick={onClose}>×</button>
         <h2>Enter OTP</h2>
         <p>An OTP has been sent to your email id</p>
-        {error && <p className="otp-error">{error}</p>}
+        {error && <p className="otp-error">{error}</p>}  {/* Display error message */}
         
         <form onSubmit={handleSubmit} onPaste={handlePaste}>
           <div className="otp-inputs">
@@ -91,10 +72,9 @@ const Otp = ({ onResend, onClose }) => {
           </div>
           <button type="submit" className="otp-submit-button">Sign In</button>
         </form>
-        <button onClick={handleResend} className="otp-resend-button">Resend</button>
-        {message && <p className="otp-message">{message}</p>}
+        <button onClick={onResend} className="otp-resend-button">Resend</button>
+        {message && <p className="otp-message">{message}</p>}  {/* Display message */}
       </div>
-      
     </div>
   );
 };
