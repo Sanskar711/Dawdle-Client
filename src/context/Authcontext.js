@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const decodedToken = jwtDecode(token);
       const currentTime = Date.now() / 1000;
-      console.log(decodedToken)
+      // console.log(decodedToken)
       if(decodedToken.user_id){
         console.log("Token expired");
         Cookies.remove('token');

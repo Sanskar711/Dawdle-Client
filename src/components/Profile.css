@@ -1,30 +1,52 @@
-/* src/App.css */
 .profile-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .profile-form {
-    width: 50%;
-  }
-  
-  .profile-form label {
-    display: block;
-    margin: 10px 0;
-  }
-  
-  .profile-form input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-  }
-  
-  .profile-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center; /* This will help in vertical centering */
+  min-height: 100vh; /* Use the full height of the viewport */
+  padding: 20px;
+  background-color: #f4f4f4; /* A light background color */
+}
+
+.profile-form {
+  width: 50%;
+  background-color: white; /* Contrast background for the form */
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.company-logo {
+  display: block;
+  margin: 0 auto; /* Centers the logo horizontally */
+  max-width: 100px; /* Set a max-width for the logo */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.profile-form label {
+  display: block;
+  margin: 10px 0;
+  color: #333; /* Dark grey color for text */
+}
+
+.profile-form input, .profile-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Rounded borders for inputs */
+}
+
+.profile-form button {
+  padding: 10px 20px;
+  background-color: #5C67F2; /* A more modern blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px; /* Space between buttons */
+  border-radius: 4px; /* Rounded borders for buttons */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.profile-form button:hover {
+  background-color: #4a54e1; /* Darken button color on hover */
+}

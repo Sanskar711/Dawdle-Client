@@ -8,6 +8,7 @@ import MeetingsCard from './Meetings';
 
 const Dashboard = () => {
   const { clientProfile, isAuthenticated, fetchClientProfile } = useAuth();
+  console.log(clientProfile)
   const [meetingsScheduled, setMeetingsScheduled] = useState(0);
   const [dealsClosed, setDealsClosed] = useState(0);
   const [dealsCompleted, setDealsCompleted] = useState(0);
@@ -17,6 +18,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (isAuthenticated) {
       fetchClientProfile();
+      console.log(clientProfile)
       fetchPerformanceMetrics();
     } else {
       navigate('/login');
@@ -27,6 +29,7 @@ const Dashboard = () => {
     try {
       const response = await api.get('/clients/meetings/');
       const meetings = response.data;
+      
       // console.log(meetings);
       setMeetingsScheduled(meetings.filter(meeting => meeting.status === 'scheduled').length);
       setDealsClosed(meetings.filter(meeting => meeting.status === 'closed').length);

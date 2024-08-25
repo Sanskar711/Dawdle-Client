@@ -30,7 +30,7 @@ const OptionList = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await api.get(`users/product/${productId}/info/`);
+        const response = await api.get(`clients/products/${productId}/`);
         if (response.status !== 200) {
           throw new Error(`Unexpected response status: ${response.status}`);
         }
@@ -48,6 +48,9 @@ const OptionList = () => {
 
   const handleAboutClick = () => {
     navigate(`/product/${productId}/options/productpage`);
+  };
+  const handleOpenResources = () => {
+    navigate(`/products/${productId}/resources/`);
   };
 
   const handleViewProspect = () => {
@@ -87,9 +90,7 @@ const OptionList = () => {
 
   return (
     <div className="option-list-container">
-      <button className="go-back" onClick={() => navigate(-1)}>
-        <img src={goBack} alt="Go Back" className="go-back-icon" />
-      </button>
+      
       <div className="option-list">
         <div className="option-item" onClick={handleAboutClick}>
           <img src={aboutCompany} alt="About" className="option-icon" />
@@ -107,8 +108,23 @@ const OptionList = () => {
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
         <div className="option-item" onClick={handleBookMeeting}>
-          <img src={calendar} alt="Book Meeting" className="option-icon" />
-          <span>Book Meeting</span>
+          <img src={viewProspect} alt="Assigned Users" className="option-icon" />
+          <span>Assigned Users</span>
+          <img src={forward} alt="Forward" className="forward-icon" />
+        </div>
+        <div className="option-item" onClick={handleBookMeeting}>
+          <img src={useCases} alt="Qualifying Questions" className="option-icon" />
+          <span>Qualifying Questions</span>
+          <img src={forward} alt="Forward" className="forward-icon" />
+        </div>
+        <div className="option-item" onClick={handleBookMeeting}>
+          <img src={viewProspect} alt="ICP" className="option-icon" />
+          <span>Ideal Customer Profiles</span>
+          <img src={forward} alt="Forward" className="forward-icon" />
+        </div>
+        <div className="option-item" onClick={handleOpenResources}>
+          <img src={calendar} alt="Resources" className="option-icon" />
+          <span>Resources</span>
           <img src={forward} alt="Forward" className="forward-icon" />
         </div>
       </div>

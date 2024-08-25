@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import api from '../context/api';
-import { useAuth } from '../context/Authcontext';
+import dummyProfile from '../images/user_default.jpg'; // Ensure this path is correct
+import { useNavigate } from 'react-router-dom';
+
 
 const Profile = () => {
-  const { userProfile, fetchUserProfile } = useAuth();
-  const [profile, setProfile] = useState(userProfile);
+  const [originalProfile, setOriginalProfile] = useState({});
+  const [profile, setProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setProfile(userProfile); // Sync profile state with the context data
-  }, [userProfile]);
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get(`/clients/client-info/`);
+        setProfile(response.data);
+        setOriginalProfile(response.data);  // Keep a copy of the original data
+      } catch (error) {
+        console.error('There was an error fetching the client profile!', error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,18 +37,37 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleCancelClick = () => {
-    setProfile(userProfile); // Revert changes by resetting to the original profile
+  const handleCancelClick = async () => {
+    // Revert changes by resetting to the original profile data
+    setProfile(originalProfile);
     setIsEditing(false);
+  };
+  const handleProducts = () => {
+    navigate('/products');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const updatedFields = {};
+
+    // Compare the original profile with the current profile and only add changed fields to updatedFields
+    Object.keys(profile).forEach((key) => {
+      if (profile[key] !== originalProfile[key]) {
+        updatedFields[key] = profile[key];
+      }
+    });
+
+    if (Object.keys(updatedFields).length === 0) {
+      alert('No changes detected.');
+      setIsEditing(false);
+      return;
+    }
+
     try {
-      await api.put(`/users/${userProfile.id}/update-profile/`, profile);
+      await api.put(`/clients/client/update/`, updatedFields);
       alert('Profile updated successfully!');
       setIsEditing(false);
-      fetchUserProfile(); 
+      setOriginalProfile(profile);  // Update original profile with the new values
     } catch (error) {
       console.error('There was an error updating the profile!', error);
     }
@@ -45,23 +77,49 @@ const Profile = () => {
     <div className="profile-container">
       <div className="profile-form">
         <h2>{isEditing ? 'Edit Profile' : 'Profile'}</h2>
+        
+              <img 
+                src={profile.company_logo ? `${api.defaults.baseURL}${profile.company_logo}` : dummyProfile} 
+                alt="Company Logo" 
+                className="company-logo" 
+              />
+            
         <form onSubmit={handleSubmit}>
           <label>
-            First Name:
+            Company Logo:
             <input
-              type="text"
-              name="first_name"
-              value={profile.first_name || ''}
+              type="file"
+              name="company_logo"
+              onChange={handleChange}
+              disabled={!isEditing}
+            />
+            
+          </label>
+          <label>
+            Company Description:
+            <textarea
+              name="company_description"
+              value={profile.company_description || ''}
               onChange={handleChange}
               disabled={!isEditing}
             />
           </label>
           <label>
-            Last Name:
+            Company Website:
             <input
-              type="text"
-              name="last_name"
-              value={profile.last_name || ''}
+              type="url"
+              name="company_website"
+              value={profile.company_website || ''}
+              onChange={handleChange}
+              disabled={!isEditing}
+            />
+          </label>
+          <label>
+            Calendly Link:
+            <input
+              type="url"
+              name="calendly_link"
+              value={profile.calendly_link || ''}
               onChange={handleChange}
               disabled={!isEditing}
             />
@@ -76,64 +134,20 @@ const Profile = () => {
               disabled={!isEditing}
             />
           </label>
-          <label>
-            Phone Number:
-            <input
-              type="text"
-              name="phone_number"
-              value={profile.phone_number || ''}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
-          </label>
-          <label>
-            LinkedIn ID:
-            <input
-              type="text"
-              name="linkedin_id"
-              value={profile.linkedin_id || ''}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
-          </label>
-          <label>
-            Designation:
-            <input
-              type="text"
-              name="designation"
-              value={profile.designation || ''}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
-          </label>
-          <label>
-            Company Name:
-            <input
-              type="text"
-              name="company_name"
-              value={profile.company_name || ''}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
-          </label>
-          {/* <label>
-            User Type:
-            <input
-              type="text"
-              name="user_type"
-              value={profile.user_type || ''}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
-          </label> */}
           {isEditing ? (
             <div className="profile-actions">
               <button type="submit">Save</button>
               <button type="button" onClick={handleCancelClick}>Cancel</button>
             </div>
           ) : (
+            
             <button type="button" onClick={handleEditClick}>Edit Profile</button>
+            
+            
           )}
+          <button type="button" onClick={handleProducts}>Products</button>
+          
+          
         </form>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { useAuth } from '../context/Authcontext'; // Correct path
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [isSending, setIsSending] = useState(false); // New state for button loading
   const { isAuthenticated, login, error, setError } = useAuth(); // Assuming setError is exposed from context
   const navigate = useNavigate();
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
@@ -25,8 +26,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSending(true); // Disable button and show "Sending"
     login(email).then((loginSuccessful) => {
-      // console.log(loginSuccessful)
+      setIsSending(false); // Re-enable button
       if (loginSuccessful) {
         setIsOtpModalOpen(true);
       }
@@ -55,7 +57,13 @@ const Login = () => {
           onChange={handleInputChange}
           required
         />
-        <button type="submit">Send OTP</button>
+        <button
+          type="submit"
+          className={isSending ? 'sending' : ''}
+          disabled={isSending}
+        >
+          {isSending ? 'Sending...' : 'Send OTP'}
+        </button>
       </form>
       {error && <div className="error-message">{error}</div>}
       

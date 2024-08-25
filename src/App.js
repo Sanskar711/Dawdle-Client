@@ -18,6 +18,9 @@ import Dashboard from './components/Dashboard';
 import MeetingDetail from './components/MeetingDetail';
 import MeetingsCard from './components/Meetings';
 import ICPQualifyingQuestions from './components/ICPQuestions';
+import ProductsPage from './components/ProductsPage';
+import ResourcePage from './components/Product/ResourcePage';
+import ResourcesPage from './components/Product/ResourcesPage';
 
 const App = () => {
 
@@ -57,6 +60,9 @@ const App = () => {
           <Route path="/" element={<MeetingsCard filterBy="scheduled" title="Scheduled Meetings" />} />
           <Route path="/meetings/:id" element={<MeetingDetail />} />
           <Route path="/product/:productId/icp-qualifying-questions" element={<ICPQualifyingQuestions />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:productId/resources/" element={<ResourcesPage />} />
+        <Route path="/products/:productId/resources/:pk/" element={<ResourcePage />} />
         </Routes>
         </Layout>
       </Router>

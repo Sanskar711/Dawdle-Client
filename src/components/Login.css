@@ -1,89 +1,98 @@
-/* src/Login.css */
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.login-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5e2bde;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form input {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 300px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00a651;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #007d3d;
+}
+
+.login-form button.sending {
+  background-color: #007d3d; /* Change color when sending */
+  cursor: not-allowed;
+}
+
+.login-form button.sending:hover {
+  background-color: #007d3d; /* Hover effect when sending */
+}
+
+p {
+  margin-top: 20px;
+  color: #666;
+}
+
+p a {
+  color: #5e2bde;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+.error-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #f44336; /* Red background for error */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it appears above other elements */
+  animation: fadeOut 3s forwards; /* Add fade-out animation */
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
   }
-  
-  .login-logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #5e2bde;
-    margin-bottom: 20px;
+  80% {
+    opacity: 1;
   }
-  
-  h2 {
-    margin-bottom: 20px;
-    color: #333;
+  100% {
+    opacity: 0;
   }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .login-form input {
-    width: 300px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .login-form button {
-    width: 300px;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #00a651;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .login-form button:hover {
-    background-color: #007d3d;
-  }
-  
-  p {
-    margin-top: 20px;
-    color: #666;
-  }
-  
-  p a {
-    color: #5e2bde;
-    text-decoration: none;
-  }
-  
-  p a:hover {
-    text-decoration: underline;
-  }
-  .error-popup {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #f44336; /* Red background for error */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it appears above other elements */
-    animation: fadeOut 3s forwards; /* Add fade-out animation */
-  }
-  
-  @keyframes fadeOut {
-    0% {
-      opacity: 1;
-    }
-    80% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
+}
