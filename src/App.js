@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename='/client'>
         <Layout>
         <Routes>
           <Route path="/login" element={<Login />} />
