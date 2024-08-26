@@ -11,7 +11,7 @@ const url = environment === 'production'
 
 // Create an Axios instance with default settings
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: url, 
   withCredentials: true,  // Ensure credentials are sent with requests
 });
 
