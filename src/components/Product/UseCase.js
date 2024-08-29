@@ -43,7 +43,7 @@ const UseCasePage = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await api.put(`/clients/products/${productId}/use-cases/${pk}/`, editedUseCase);
+      const response = await api.put(`/clients/products/${productId}/use-cases/${pk}/update/`, editedUseCase);
       setUseCase(response.data);
       setIsEditing(false);
       window.alert('Use case updated successfully!');
