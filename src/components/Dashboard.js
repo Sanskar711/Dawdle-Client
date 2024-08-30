@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
-import dummyProfile from '../images/user_default.jpg';
 import api from '../context/api';
 import { useAuth } from '../context/Authcontext';
 import { useNavigate } from 'react-router-dom';
 import MeetingsCard from './Meetings';
 
 const Dashboard = () => {
-  const { clientProfile, isAuthenticated, fetchClientProfile,checkAuth } = useAuth();
-  // console.log(clientProfile)
+  const { isAuthenticated, checkAuth } = useAuth();
   const [meetingsScheduled, setMeetingsScheduled] = useState(0);
   const [dealsClosed, setDealsClosed] = useState(0);
   const [dealsCompleted, setDealsCompleted] = useState(0);
@@ -16,10 +14,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuth()
+    checkAuth();
     if (isAuthenticated) {
-      fetchClientProfile();
-      // console.log(clientProfile)
       fetchPerformanceMetrics();
     } else {
       navigate('/login');
@@ -30,8 +26,7 @@ const Dashboard = () => {
     try {
       const response = await api.get('/clients/meetings/');
       const meetings = response.data;
-      
-      // console.log(meetings);
+
       setMeetingsScheduled(meetings.filter(meeting => meeting.status === 'scheduled').length);
       setDealsClosed(meetings.filter(meeting => meeting.status === 'closed').length);
       setDealsCompleted(meetings.filter(meeting => meeting.status === 'completed').length);
@@ -57,37 +52,29 @@ const Dashboard = () => {
     }
   };
 
-  // Function to construct the full image URL
-  
-
   return (
     <div className="dashboard-container">
-      <div className="user-profile-dashboard">
-        {/* User Profile Details */}
-        <img 
-          src={clientProfile.company_logo?`${api.defaults.baseURL}${clientProfile.company_logo}`:dummyProfile} 
-          alt="Company Logo" 
-          className="avatar" 
-        />
-        <h2>{clientProfile?.name || "Sam Rock"}</h2>
-        <p>{clientProfile?.email || "samrock@gmail.com"}</p>
-        <p>{clientProfile?.company_website || "+1 123456789"}</p>
-        <p>{clientProfile?.calendly_link || "Sales Executive"}</p>
-      </div>
-
       <div className="performance-metrics">
         <h1 className="title">Performance Metrics</h1>
-        <p className="subtitle">Track your sales performance data</p>
         <div className="metrics">
-          <div className="metric-item" onClick={() => handleMetricClick('scheduled')}>
+          <div 
+            className={`metric-item ${selectedMetric === 'scheduled' ? 'active' : ''}`} 
+            onClick={() => handleMetricClick('scheduled')}
+          >
             <span className="metric-number">{meetingsScheduled}</span>
             <span className="metric-label">Meetings Scheduled</span>
           </div>
-          <div className="metric-item" onClick={() => handleMetricClick('completed')}>
+          <div 
+            className={`metric-item ${selectedMetric === 'completed' ? 'active' : ''}`} 
+            onClick={() => handleMetricClick('completed')}
+          >
             <span className="metric-number">{dealsCompleted}</span>
             <span className="metric-label">Meetings Completed</span>
           </div>
-          <div className="metric-item" onClick={() => handleMetricClick('closed')}>
+          <div 
+            className={`metric-item ${selectedMetric === 'closed' ? 'active' : ''}`} 
+            onClick={() => handleMetricClick('closed')}
+          >
             <span className="metric-number">{dealsClosed}</span>
             <span className="metric-label">Deals Closed</span>
           </div>

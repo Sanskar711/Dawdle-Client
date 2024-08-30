@@ -4,23 +4,22 @@ import './QualifyingQuestionsPage.css';
 import api from '../../context/api';
 import arrowIcon from '../../images/Arrow.png';  // Ensure you have an arrow icon in your images folder
 import { useAuth } from '../../context/Authcontext';
+
 const QualifyingQuestionsPage = () => {
   const { productId } = useParams();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [newQuestion, setNewQuestion] = useState({
-    question: ''
-  });
   const navigate = useNavigate();
-  const { isAuthenticated,logout, checkAuth } = useAuth();
-  useEffect(()=>{
-    checkAuth()
-    if(!isAuthenticated){
-        logout();
+  const { isAuthenticated, logout, checkAuth } = useAuth();
+
+  useEffect(() => {
+    checkAuth();
+    if (!isAuthenticated) {
+      logout();
     }
-  },[isAuthenticated])
+  }, [isAuthenticated, checkAuth, logout]);
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -40,30 +39,6 @@ const QualifyingQuestionsPage = () => {
     fetchQuestions();
   }, [productId]);
 
-  const handleAddQuestion = async () => {
-    try {
-      const response = await api.post(`/clients/products/${productId}/qualifying-questions/`, newQuestion);
-      setQuestions([...questions, response.data]);
-      setShowForm(false);
-      setNewQuestion({ question: '' });
-      window.alert('Question added successfully!');
-    } catch (error) {
-      window.alert('Failed to add question. Please try again.');
-    }
-  };
-
-  const handleDeleteQuestion = async (questionId) => {
-    if (window.confirm('Are you sure you want to delete this question?')) {
-      try {
-        await api.delete(`/clients/products/${productId}/qualifying-questions/${questionId}/`);
-        setQuestions(questions.filter((question) => question.id !== questionId));
-        window.alert('Question deleted successfully!');
-      } catch (error) {
-        window.alert('Failed to delete question. Please try again.');
-      }
-    }
-  };
-
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -75,9 +50,6 @@ const QualifyingQuestionsPage = () => {
           <div key={question.id} className="question-card">
             <p>{question.question}</p>
             <div className="question-actions">
-              <button className="delete-btn" onClick={() => handleDeleteQuestion(question.id)}>
-                Delete
-              </button>
               <img
                 src={arrowIcon}
                 alt="View Details"
@@ -89,23 +61,6 @@ const QualifyingQuestionsPage = () => {
         ))
       ) : (
         <p>No questions available.</p>
-      )}
-      <button className="add-question-btn" onClick={() => setShowForm(true)}>
-        Add Question
-      </button>
-      {showForm && (
-        <div className="form-popup">
-          <div className="form-popup-content">
-            <button className="close-btn" onClick={() => setShowForm(false)}>×</button>
-            <h2>Add New Question</h2>
-            <textarea
-              placeholder="Enter the question"
-              value={newQuestion.question}
-              onChange={(e) => setNewQuestion({ ...newQuestion, question: e.target.value })}
-            />
-            <button className="save-btn" onClick={handleAddQuestion}>Save</button>
-          </div>
-        </div>
       )}
     </div>
   );

@@ -14,7 +14,7 @@ const UseCasePage = () => {
     description: '',
     solution: '',
     target_audience: '',
-    sample_pitch: '',
+    // sample_pitch: '',
     reference_links: ''
   });
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const UseCasePage = () => {
           <p>{useCase.description}</p>
           <p>Solution: {useCase.solution}</p>
           <p>Target Audience: {useCase.target_audience}</p>
-          <p>Sample Pitch: {useCase.sample_pitch}</p>
+          {/* <p>Sample Pitch: {useCase.sample_pitch}</p> */}
           <p>Reference Links: {useCase.reference_links}</p>
           <button onClick={() => setIsEditing(true)}>Edit Use Case</button>
           
@@ -108,13 +108,13 @@ const UseCasePage = () => {
             onChange={(e) => setEditedUseCase({ ...editedUseCase, target_audience: e.target.value })}
           />
 
-          <label htmlFor="sample_pitch">Sample Pitch</label>
+          {/* <label htmlFor="sample_pitch">Sample Pitch</label>
           <textarea
             id="sample_pitch"
             name="sample_pitch"
             value={editedUseCase.sample_pitch}
             onChange={(e) => setEditedUseCase({ ...editedUseCase, sample_pitch: e.target.value })}
-          />
+          /> */}
 
           <label htmlFor="reference_links">Reference Links</label>
           <textarea

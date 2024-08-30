@@ -1,34 +1,8 @@
-/* Dashboard.css */
-
 .dashboard-container {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
-}
-
-.user-profile-dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.user-profile-dashboard h2 {
-    margin-bottom: 8px;
-}
-
-.user-profile-dashboard p {
-    margin-bottom: 4px;
-}
-
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 10px;
 }
 
 .performance-metrics {
@@ -39,12 +13,6 @@
 .performance-metrics .title {
     font-size: 24px;
     color: #4A4A4A;
-}
-
-.performance-metrics .subtitle {
-    font-size: 16px;
-    color: #6A6A6A;
-    margin-bottom: 20px;
 }
 
 .metrics {
@@ -59,21 +27,31 @@
     align-items: center;
     font-size: 20px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: #f5f5f5; /* Default background color */
 }
 
 .metric-item:hover {
     transform: translateY(-2px);
+    background-color: #e0e7ff;
+}
+
+.metric-item.active {
+    background-color: rgba(59, 130, 246, 0.4); /* Highlight color with opacity */
+    color: white; /* Text color for better contrast */
+    transform: scale(1.05); /* Slightly enlarge the selected metric */
 }
 
 .metric-number {
     font-size: 36px;
-    color: #3B82F6;
+    color: inherit; /* Inherit color from parent (metric-item) */
 }
 
 .metric-label {
     font-size: 16px;
-    color: #6B7280;
+    color: inherit; /* Inherit color from parent (metric-item) */
 }
 
 /* Responsive design */

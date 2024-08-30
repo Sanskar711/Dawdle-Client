@@ -15,7 +15,7 @@ const UseCasesPage = () => {
     description: '',
     solution: '',
     target_audience: '',
-    sample_pitch: '',
+    // sample_pitch: '',
     reference_links: ''
   });
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const UseCasesPage = () => {
       const response = await api.post(`/clients/products/${productId}/use-cases/`, newUseCase);
       setUseCases([...useCases, response.data]);
       setShowForm(false);
-      setNewUseCase({ title: '', description: '', solution: '', target_audience: '', sample_pitch: '', reference_links: '' });
+      setNewUseCase({ title: '', description: '', solution: '', target_audience: '',  reference_links: '' });
       window.alert('Use case added successfully!');
     } catch (error) {
       window.alert('Failed to add use case. Please try again.');
@@ -142,13 +142,13 @@ const UseCasesPage = () => {
             />
             <small className="help-text">Identify the audience that would benefit from this use case.</small>
 
-            <label htmlFor="sample_pitch">Sample Pitch</label>
+            {/* <label htmlFor="sample_pitch">Sample Pitch</label>
             <textarea
               id="sample_pitch"
               placeholder="Provide a sample pitch"
               value={newUseCase.sample_pitch}
               onChange={(e) => setNewUseCase({ ...newUseCase, sample_pitch: e.target.value })}
-            />
+            /> */}
             <small className="help-text">Write a sample pitch to present the use case.</small>
 
             <label htmlFor="reference_links">Reference Links</label>
