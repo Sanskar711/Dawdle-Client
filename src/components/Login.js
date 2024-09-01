@@ -30,14 +30,15 @@ const Login = () => {
     e.preventDefault();
     setIsSending(true); // Disable button and show "Sending"
     login(email).then((loginSuccessful) => {
-      setIsSending(false); // Re-enable button
-      if (loginSuccessful) {
-        setIsOtpModalOpen(true); // Open OTP modal on successful login
-      } else {
-        setError('Login failed. Please try again.'); // Handle login failure
-      }
+        setIsSending(false); // Re-enable button
+        if (loginSuccessful) {
+            setIsOtpModalOpen(true); // Open OTP modal on successful login
+        } else {
+            alert(error || 'Login failed. Please try again.'); // Show an alert if login fails
+        }
     });
-  };
+};
+
 
   const handleOtpSubmit = (otp) => {
     verifyOtp(otp)

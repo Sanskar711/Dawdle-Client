@@ -162,3 +162,12 @@ input:checked + .slider:before {
     padding: 0.3rem;
   }
 }
+.no-products,
+.no-prospects {
+  text-align: center;
+  color: #555;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+  
+}

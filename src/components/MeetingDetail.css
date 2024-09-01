@@ -1,45 +1,61 @@
 .meeting-detail-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    max-width: 800px;
-    margin: 20px auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .meeting-info, .prospect-info {
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    color: #555;
-  }
-  
-  p {
-    font-size: 1rem;
-    margin: 8px 0;
-  }
-  
-  strong {
-    color: #333;
-  }
-  
-  .loading {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-top: 50px;
-  }
-  
-  .error {
-    text-align: center;
-    color: red;
-    font-size: 1.5rem;
-    margin-top: 50px;
-  }
-  
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meeting-info, .prospect-info, .poc-info, .questions-info, .use-cases-info, .additional-details, .meeting-notes {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.6;
+  word-wrap: break-word; /* Ensures long text wraps properly */
+}
+
+strong {
+  color: #333;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 50px;
+}
+
+.error {
+  color: red;
+}
+
+
+
+.meeting-notes {
+  background-color: #f0f8ff;
+  border: 1px solid #007bff;
+  margin-top: 20px;
+}

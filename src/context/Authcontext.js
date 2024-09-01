@@ -63,22 +63,23 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email) => {
     try {
-      const response = await api.post('/clients/signin/', { email });
-      if (response.data.client_id) {
-        setClientId(response.data.client_id);
-        setError(null);  // Reset error state if login is successful
-        return true;     // Indicate login was successful
-      }
+        const response = await api.post('/clients/signin/', { email });
+        if (response.data.client_id) {
+            setClientId(response.data.client_id);
+            setError(null);  // Reset error state if login is successful
+            return true;     // Indicate login was successful
+        }
     } catch (error) {
-      console.error('There was an error sending the OTP!', error);
-      if (error.response && error.response.status === 404) {
-        setError('Client not found');  // Set error message if client not found
-      } else {
-        setError('An error occurred while sending the OTP');
-      }
-      return false;  // Indicate login failed
+        console.error('There was an error sending the OTP!', error);
+        if (error.response && error.response.status === 404) {
+            setError('Client not found');  // Set error message if user not found
+        } else {
+            setError('An error occurred while sending the OTP');
+        }
+        return false;  // Indicate login failed
     }
-  };
+};
+
 
   const verifyOtp = async (otp) => {
     try {

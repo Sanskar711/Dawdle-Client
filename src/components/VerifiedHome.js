@@ -17,10 +17,13 @@ const VerifiedHome = ({ searchTerm }) => {  // Accept searchTerm as a prop
         setProducts(response.data);
         if (response.data.length > 0) {
           setSelectedProduct(response.data[0].id);  // Set the first product as the default selection
+        } else {
+          setLoading(false);  // Stop loading if no products are found
         }
       })
       .catch(error => {
         setError('There was an error fetching the products!');
+        setLoading(false);
       });
   }, []);
 
@@ -86,6 +89,14 @@ const VerifiedHome = ({ searchTerm }) => {  // Accept searchTerm as a prop
 
   if (error) {
     return <div className="error">{error}</div>;
+  }
+
+  if (products.length === 0) {
+    return <div className="no-products">No products found</div>;
+  }
+
+  if (prospects.length === 0) {
+    return <div className="no-prospects">No prospects found for the selected product</div>;
   }
 
   return (
